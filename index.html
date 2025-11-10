@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Чистая Планета - Учет партнеров</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <div class="header-content">
+        <img src="./kartinka/earth.png" alt="Логотип" class="logo" />
+        <h1>Учет партнеров</h1>
+      </div>
+    </header>
+
+    <main>
+      <!-- Главное меню -->
+      <div id="mainMenu" class="view active">
+        <div class="controls">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Поиск партнеров..."
+          />
+          <select id="sortSelect">
+            <option value="name">По имени</option>
+            <option value="rating">По рейтингу</option>
+          </select>
+          <button onclick="showView('addPartner')" class="btn-primary">
+            Добавить партнера
+          </button>
+          <button
+            onclick="showView('materialCalculation')"
+            class="btn-secondary"
+          >
+            Расчет материалов
+          </button>
+          <button onclick="exportToCSV()" class="btn-secondary">
+            Экспорт CSV
+          </button>
+        </div>
+
+        <div id="partnersList" class="partners-grid">
+          <!-- Список партнеров будет здесь -->
+        </div>
+      </div>
+
+      <!-- Форма добавления партнера -->
+      <div id="addPartner" class="view">
+        <h2>Добавление партнера</h2>
+        <form id="partnerForm" class="form">
+          <div class="form-group">
+            <label>Наименование:</label>
+            <input type="text" id="name" required />
+          </div>
+          <div class="form-group">
+            <label>Тип партнера:</label>
+            <select id="type" required>
+              <option value="розничный пункт">Розничный пункт</option>
+              <option value="корпоративный клиент">Корпоративный клиент</option>
+              <option value="интернет-агрегатор">Интернет-агрегатор</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Рейтинг (0-10):</label>
+            <input type="number" id="rating" min="0" max="10" value="0" />
+          </div>
+          <div class="form-group">
+            <label>Адрес:</label>
+            <input type="text" id="address" />
+          </div>
+          <div class="form-group">
+            <label>ФИО руководителя:</label>
+            <input type="text" id="director" />
+          </div>
+          <div class="form-group">
+            <label>Телефон:</label>
+            <input type="tel" id="phone" />
+          </div>
+          <div class="form-group">
+            <label>Email:</label>
+            <input type="email" id="email" />
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              onclick="showView('mainMenu')"
+              class="btn-secondary"
+            >
+              Назад
+            </button>
+            <button type="submit" class="btn-primary">Сохранить</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- История услуг -->
+      <div id="serviceHistory" class="view">
+        <h2 id="historyTitle">История услуг</h2>
+        <div class="history-controls">
+          <div class="partner-info-card">
+            <h3 id="currentPartnerName"></h3>
+            <p id="currentPartnerDetails"></p>
+          </div>
+        </div>
+        <div id="historyContent" class="history-content">
+          <!-- История будет здесь -->
+        </div>
+        <button onclick="showView('mainMenu')" class="btn-secondary">
+          Назад к списку
+        </button>
+      </div>
+
+      <!-- Расчет материалов -->
+      <div id="materialCalculation" class="view">
+        <h2>Расчет количества материалов</h2>
+        <form id="calculationForm" class="form">
+          <div class="form-group">
+            <label>Тип услуги:</label>
+            <select id="serviceType" required>
+              <option value="1">Стирка</option>
+              <option value="2">Химчистка</option>
+              <option value="3">Ремонт</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Тип материала:</label>
+            <select id="materialType" required>
+              <option value="1">Моющее средство</option>
+              <option value="2">Растворитель</option>
+              <option value="3">Отбеливатель</option>
+              <option value="4">Пакеты</option>
+              <option value="5">Теги-ярлыки</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Количество услуг:</label>
+            <input
+              type="number"
+              id="serviceQuantity"
+              min="1"
+              value="1"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Вес изделия (кг):</label>
+            <input
+              type="number"
+              id="productWeight"
+              min="0.1"
+              step="0.1"
+              value="1.0"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label>Площадь загрязнения (м²):</label>
+            <input
+              type="number"
+              id="stainArea"
+              min="0.1"
+              step="0.1"
+              value="0.5"
+              required
+            />
+          </div>
+          <div class="form-actions">
+            <button
+              type="button"
+              onclick="showView('mainMenu')"
+              class="btn-secondary"
+            >
+              Назад
+            </button>
+            <button type="submit" class="btn-primary">Рассчитать</button>
+          </div>
+        </form>
+        <div id="calculationResult" class="result-container"></div>
+      </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script src="material-calculation.js"></script>
+  </body>
+</html>
